@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maya Bot - Your Ultimate Music Companion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        @keyframes bounce {
+            0%, 100% { height: 20px; }
+            50% { height: 60px; }
+        }
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(147, 51, 234, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(147, 51, 234, 0.6); }
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        .animate-spin-slow {
+            animation: spin 8s linear infinite;
+        }
+        .animate-pulse-glow {
+            animation: glow 2s ease-in-out infinite;
+        }
+        .visualizer-bar {
+            animation: bounce 0.5s ease-in-out infinite;
+        }
+        .slide-in {
+            animation: slideIn 0.6s ease-out forwards;
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #9333ea, #ec4899, #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #faf5ff 0%, #ffffff 50%, #fdf2f8 100%);
+        }
+        .feature-gradient {
+            background: linear-gradient(135deg, #9333ea, #ec4899);
+        }
+        .stats-gradient {
+            background: linear-gradient(135deg, #9333ea, #ec4899);
+        }
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(147, 51, 234, 0.3);
+            border-radius: 50%;
+            animation: float 4s ease-in-out infinite;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #9333ea;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #7c3aed;
+        }
+        /* Language button styles */
+        .lang-btn {
+            transition: all 0.3s ease;
+        }
+        .lang-btn.active {
+            background: linear-gradient(135deg, #9333ea, #ec4899);
+            color: white;
+        }
+    </style>
+</head>
+<body class="min-h-screen hero-gradient relative overflow-x-hidden">
+    <!-- Floating Particles Background -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden -z-10" id="particles"></div>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-effect border-b border-purple-100 slide-in">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-2 cursor-pointer hover:scale-105 transition-transform" onclick="scrollToSection('home')">
+                <div class="w-10 h-10 rounded-xl feature-gradient flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
+                    </svg>
+                </div>
+                <span class="text-2xl font-bold gradient-text">Maya Bot</span>
+            </div>
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="#home" class="flex items-center gap-2 text-gray-700 hover:text-purple-600 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    <span class="nav-text" data-key="home">Home</span>
+                </a>
+                <a href="#features" class="flex items-center gap-2 text-gray-700 hover:text-purple-600 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                    <span class="nav-text" data-key="features">Features</span>
+                </a>
+                <a href="#commands" class="flex items-center gap-2 text-gray-700 hover:text-purple-600 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <span class="nav-text" data-key="commands">Commands</span>
+                </a>
+                <a href="#about" class="flex items-center gap-2 text-gray-700 hover:text-purple-600 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg>
+                    <span class="nav-text" data-key="about">About</span>
+                </a>
+            </nav>
+            <div class="flex gap-2">
+                <button class="lang-btn px-4 py-2 rounded-lg border-2 border-purple-300 hover:bg-purple-50 text-sm font-medium active" data-lang="en" onclick="changeLanguage('en')">EN</button>
+                <button class="lang-btn px-4 py-2 rounded-lg border-2 border-purple-300 hover:bg-purple-50 text-sm font-medium" data-lang="vi" onclick="changeLanguage('vi')">VI</button>
+                <button class="lang-btn px-4 py-2 rounded-lg border-2 border-purple-300 hover:bg-purple-50 text-sm font-medium" data-lang="hi" onclick="changeLanguage('hi')">HI</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-20 px-4 min-h-screen flex items-center">
+        <div class="container mx-auto">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="slide-in" style="animation-delay: 0.2s">
+                    <div class="inline-block px-4 py-2 rounded-full feature-gradient text-white text-sm font-medium mb-6 animate-pulse-glow">
+                        <svg class="w-4 h-4 inline mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                        <span data-key="heroSubtitle">Your Ultimate Music Companion</span>
+                    </div>
+                    <h1 class="text-6xl md:text-7xl font-bold mb-6">
+                        <span class="gradient-text hero-title" data-key="heroTitle">Maya Bot</span>
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-8 hero-desc" data-key="heroDescription">
+                        Experience the best music streaming with Maya Bot. High-quality audio, playlist management, and seamless integration with your favorite platforms.
+                    </p>
+                    <div class="flex gap-4 flex-wrap fade-in" style="animation-delay: 0.5s">
+                        <button class="px-8 py-4 rounded-xl feature-gradient text-white font-semibold text-lg shadow-lg shadow-purple-500/30 hover:scale-105 hover:shadow-xl transition-all duration-300 flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            <span data-key="ctaInvite">Invite Maya Bot</span>
+                        </button>
+                        <button class="px-8 py-4 rounded-xl border-2 border-purple-300 font-semibold text-lg hover:bg-purple-50 hover:scale-105 transition-all duration-300">
+                            <span data-key="ctaLearnMore">Learn More</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center slide-in" style="animation-delay: 0.4s">
+                    <!-- Animated Disc -->
+                    <div class="relative w-64 h-64">
+                        <div class="absolute inset-0 rounded-full feature-gradient flex items-center justify-center shadow-2xl animate-spin-slow" id="mainDisc">
+                            <div class="w-48 h-48 rounded-full bg-gradient-to-br from-purple-800 via-pink-700 to-purple-900 flex items-center justify-center">
+                                <div class="w-20 h-20 rounded-full bg-gradient-to-br from-white to-pink-200 flex items-center justify-center animate-pulse">
+                                    <svg class="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Orbiting Notes -->
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full">
+                            <div class="absolute animate-spin-slow" style="animation-duration: 4s;">
+                                <svg class="w-6 h-6 text-pink-400 absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2" fill="currentColor" viewBox="0 0 24 24"><path d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Music Visualizer -->
+                    <div class="flex items-end justify-center gap-1 h-20 my-6" id="visualizer">
+                        <div class="w-2 bg-gradient-to-t from-purple-600 to-pink-500 rounded-full visualizer-bar" style="animation-delay: 0s;"></div>
+                        <div class="w-2 bg-gradient-to-t from-purple-600 to-pink-500 rounded-full visualizer-bar" style="animation-delay: 0.1s;"></div>
+                        <div class="w-2 bg-gradient-to-t from-purple-600 to-pink-500 rounded-full visualizer-bar" style="animation-delay: 0.2s;"></div>
+                        <div class="w-2 bg-gradient-to-t from-purple-600 to-pink-500 rounded-full visualizer-bar" style="animation-delay: 0.3s;"></div>
+                        <div class="w-2 bg-gradient-to-t from-purple-600 to-pink-500 rounded-full visualizer-bar" style="animation-delay: 0.4s;"></div>
+                        <div class="w-2 bg-gradient-to-t from-purple-600 to-pink-500 rounded-full visualizer-bar" style="animation-delay: 0.5s;"></div>
+                        <div class="w-2 bg-gradient-to-t from-purple-600 to-pink-500 rounded-full visualizer-bar" style="animation-delay: 0.6s;"></div>
+                        <div class="w-2 bg-gradient-to-t from-purple-600 to-pink-500 rounded-full visualizer-bar" style="animation-delay: 0.7s;"></div>
+                    </div>
+                    <!-- Play Button -->
+                    <button class="w-16 h-16 rounded-full feature-gradient flex items-center justify-center shadow-xl hover:scale-110 hover:shadow-2xl transition-all duration-300" id="playBtn" onclick="togglePlay()">
+                        <svg class="w-8 h-8 text-white" id="playIcon" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 px-4 bg-white/50 backdrop-blur-sm">
+        <div class="container mx-auto">
+            <div class="text-center mb-16 slide-in">
+                <h2 class="text-5xl font-bold mb-4 gradient-text" data-key="featuresTitle">Powerful Features</h2>
+                <p class="text-xl text-gray-600" data-key="featuresSubtitle">Everything you need for an amazing music experience</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Feature Cards -->
+                <div class="glass-effect rounded-2xl p-6 hover:shadow-2xl hover:shadow-purple-500/20 border-2 hover:border-purple-300 transition-all duration-300 hover:-translate-y-2 slide-in" style="animation-delay: 0.1s;">
+                    <div class="w-14 h-14 rounded-xl feature-gradient flex items-center justify-center mb-4">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 gradient-text" data-key="featureHighQuality">High Quality Audio</h3>
+                    <p class="text-gray-600" data-key="featureHighQualityDesc">Crystal clear sound with multiple quality options from 128kbps to FLAC</p>
+                </div>
+
+                <div class="glass-effect rounded-2xl p-6 hover:shadow-2xl hover:shadow-purple-500/20 border-2 hover:border-purple-300 transition-all duration-300 hover:-translate-y-2 slide-in" style="animation-delay: 0.2s;">
+                    <div class="w-14 h-14 rounded-xl feature-gradient flex items-center justify-center mb-4">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 gradient-text" data-key="featurePlaylists">Playlist Management</h3>
+                    <p class="text-gray-600" data-key="featurePlaylistsDesc">Create, edit, and manage your personal playlists with ease</p>
+                </div>
+
+                <div class="glass-effect rounded-2xl p-6 hover:shadow-2xl hover:shadow-purple-500/20 border-2 hover:border-purple-300 transition-all duration-300 hover:-translate-y-2 slide-in" style="animation-delay: 0.3s;">
+                    <div class="w-14 h-14 rounded-xl feature-gradient flex items-center justify-center mb-4">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 gradient-text" data-key="featureSearch">Smart Search</h3>
+                    <p class="text-gray-600" data-key="featureSearchDesc">Find any song, artist, or album instantly with our powerful search</p>
+                </div>
+
+                <div class="glass-effect rounded-2xl p-6 hover:shadow-2xl hover:shadow-purple-500/20 border-2 hover:border-purple-300 transition-all duration-300 hover:-translate-y-2 slide-in" style="animation-delay: 0.4s;">
+                    <div class="w-14 h-14 rounded-xl feature-gradient flex items-center justify-center mb-4">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1.043 12.357a1.859 1.859 0 010-2.714c.573-.573 1.477-.656 2.143-.185L12 17.65l8.814-8.192c.666-.471 1.57-.388 2.143.185a1.859 1.859 0 010 2.714L12 21.35l-10.957-9.993z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 gradient-text" data-key="featureRadio">Radio Mode</h3>
+                    <p class="text-gray-600" data-key="featureRadioDesc">Auto-play similar songs based on your music preferences</p>
+                </div>
+
+                <div class="glass-effect rounded-2xl p-6 hover:shadow-2xl hover:shadow-purple-500/20 border-2 hover:border-purple-300 transition-all duration-300 hover:-translate-y-2 slide-in" style="animation-delay: 0.5s;">
+                    <div class="w-14 h-14 rounded-xl feature-gradient flex items-center justify-center mb-4">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 gradient-text" data-key="featureLyrics">Lyrics Display</h3>
+                    <p class="text-gray-600" data-key="featureLyricsDesc">Real-time lyrics synchronized with the music</p>
+                </div>
+
+                <div class="glass-effect rounded-2xl p-6 hover:shadow-2xl hover:shadow-purple-500/20 border-2 hover:border-purple-300 transition-all duration-300 hover:-translate-y-2 slide-in" style="animation-delay: 0.6s;">
+                    <div class="w-14 h-14 rounded-xl feature-gradient flex items-center justify-center mb-4">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 gradient-text" data-key="featureMultiServer">Multi-Server</h3>
+                    <p class="text-gray-600" data-key="featureMultiServerDesc">Works seamlessly across multiple Discord servers</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Commands Section -->
+    <section id="commands" class="py-20 px-4">
+        <div class="container mx-auto">
+            <div class="text-center mb-16 slide-in">
+                <h2 class="text-5xl font-bold mb-4 gradient-text" data-key="commandsTitle">Easy to Use Commands</h2>
+                <p class="text-xl text-gray-600" data-key="commandsSubtitle">Simple and intuitive commands for everyone</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+                <div class="glass-effect rounded-xl p-4 flex items-center gap-4 hover:shadow-lg hover:shadow-purple-500/10 border-2 hover:border-purple-200 transition-all duration-300 hover:translate-x-2 slide-in" style="animation-delay: 0.1s;">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    </div>
+                    <div>
+                        <code class="text-lg font-semibold text-purple-700 command-text" data-key="commandPlay">!play [song]</code>
+                        <p class="text-sm text-gray-600" data-key="commandPlayDesc">Play any song or playlist</p>
+                    </div>
+                </div>
+
+                <div class="glass-effect rounded-xl p-4 flex items-center gap-4 hover:shadow-lg hover:shadow-purple-500/10 border-2 hover:border-purple-200 transition-all duration-300 hover:translate-x-2 slide-in" style="animation-delay: 0.15s;">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"/></svg>
+                    </div>
+                    <div>
+                        <code class="text-lg font-semibold text-purple-700" data-key="commandSkip">!skip</code>
+                        <p class="text-sm text-gray-600" data-key="commandSkipDesc">Skip the current track</p>
+                    </div>
+                </div>
+
+                <div class="glass-effect rounded-xl p-4 flex items-center gap-4 hover:shadow-lg hover:shadow-purple-500/10 border-2 hover:border-purple-200 transition-all duration-300 hover:translate-x-2 slide-in" style="animation-delay: 0.2s;">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                    </div>
+                    <div>
+                        <code class="text-lg font-semibold text-purple-700" data-key="commandPause">!pause</code>
+                        <p class="text-sm text-gray-600" data-key="commandPauseDesc">Pause the music</p>
+                    </div>
+                </div>
+
+                <div class="glass-effect rounded-xl p-4 flex items-center gap-4 hover:shadow-lg hover:shadow-purple-500/10 border-2 hover:border-purple-200 transition-all duration-300 hover:translate-x-2 slide-in" style="animation-delay: 0.25s;">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                    <div>
+                        <code class="text-lg font-semibold text-purple-700" data-key="commandResume">!resume</code>
+                        <p class="text-sm text-gray-600" data-key="commandResumeDesc">Resume paused music</p>
+                    </div>
+                </div>
+
+                <div class="glass-effect rounded-xl p-4 flex items-center gap-4 hover:shadow-lg hover:shadow-purple-500/10 border-2 hover:border-purple-200 transition-all duration-300 hover:translate-x-2 slide-in" style="animation-delay: 0.3s;">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+                    </div>
+                    <div>
+                        <code class="text-lg font-semibold text-purple-700" data-key="commandQueue">!queue</code>
+                        <p class="text-sm text-gray-600" data-key="commandQueueDesc">View the music queue</p>
+                    </div>
+                </div>
+
+                <div class="glass-effect rounded-xl p-4 flex items-center gap-4 hover:shadow-lg hover:shadow-purple-500/10 border-2 hover:border-purple-200 transition-all duration-300 hover:translate-x-2 slide-in" style="animation-delay: 0.35s;">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+                    </div>
+                    <div>
+                        <code class="text-lg font-semibold text-purple-700" data-key="commandVolume">!volume [0-100]</code>
+                        <p class="text-sm text-gray-600" data-key="commandVolumeDesc">Adjust the volume</p>
+                    </div>
+                </div>
+
+                <div class="glass-effect rounded-xl p-4 flex items-center gap-4 hover:shadow-lg hover:shadow-purple-500/10 border-2 hover:border-purple-200 transition-all duration-300 hover:translate-x-2 slide-in" style="animation-delay: 0.4s;">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                    </div>
+                    <div>
+                        <code class="text-lg font-semibold text-purple-700" data-key="commandShuffle">!shuffle</code>
+                        <p class="text-sm text-gray-600" data-key="commandShuffleDesc">Shuffle the queue</p>
+                    </div>
+                </div>
+
+                <div class="glass-effect rounded-xl p-4 flex items-center gap-4 hover:shadow-lg hover:shadow-purple-500/10 border-2 hover:border-purple-200 transition-all duration-300 hover:translate-x-2 slide-in" style="animation-delay: 0.45s;">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                    </div>
+                    <div>
+                        <code class="text-lg font-semibold text-purple-700" data-key="commandClear">!clear</code>
+                        <p class="text-sm text-gray-600" data-key="commandClearDesc">Clear the music queue</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="about" class="py-20 px-4 stats-gradient text-white">
+        <div class="container mx-auto">
+            <div class="text-center mb-12 slide-in">
+                <h2 class="text-5xl font-bold mb-4" data-key="aboutTitle">About Maya Bot</h2>
+                <p class="text-xl max-w-3xl mx-auto opacity-90" data-key="aboutDescription">Maya Bot is a powerful Discord music bot designed to bring the best music streaming experience to your server. With support for multiple platforms including Spotify, YouTube, SoundCloud, and more, Maya Bot ensures you never miss a beat.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div class="text-center slide-in hover:scale-110 transition-transform duration-300" style="animation-delay: 0.1s;">
+                    <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg>
+                    </div>
+                    <div class="text-5xl font-bold mb-2">10K+</div>
+                    <div class="text-lg opacity-80" data-key="statsServers">Servers</div>
+                </div>
+                <div class="text-center slide-in hover:scale-110 transition-transform duration-300" style="animation-delay: 0.2s;">
+                    <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    </div>
+                    <div class="text-5xl font-bold mb-2">500K+</div>
+                    <div class="text-lg opacity-80" data-key="statsUsers">Users</div>
+                </div>
+                <div class="text-center slide-in hover:scale-110 transition-transform duration-300" style="animation-delay: 0.3s;">
+                    <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+                    </div>
+                    <div class="text-5xl font-bold mb-2">1M+</div>
+                    <div class="text-lg opacity-80" data-key="statsSongs">Songs Played</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 px-4">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-2">
+                    <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+                    <span class="text-2xl font-bold">Maya Bot</span>
+                </div>
+                <div class="flex gap-6 text-gray-400">
+                    <a href="#" class="hover:text-white transition-colors" data-key="footerTerms">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition-colors" data-key="footerPrivacy">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors" data-key="footerSupport">Support Server</a>
+                </div>
+            </div>
+            <div class="text-center mt-8 text-gray-500">
+                © 2024 Maya Bot. <span data-key="footerRights">All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Translations
+        const translations = {
+            en: {
+                home: "Home",
+                features: "Features",
+                commands: "Commands",
+                about: "About",
+                heroTitle: "Maya Bot",
+                heroSubtitle: "Your Ultimate Music Companion",
+                heroDescription: "Experience the best music streaming with Maya Bot. High-quality audio, playlist management, and seamless integration with your favorite platforms.",
+                ctaInvite: "Invite Maya Bot",
+                ctaLearnMore: "Learn More",
+                featuresTitle: "Powerful Features",
+                featuresSubtitle: "Everything you need for an amazing music experience",
+                featureHighQuality: "High Quality Audio",
+                featureHighQualityDesc: "Crystal clear sound with multiple quality options from 128kbps to FLAC",
+                featurePlaylists: "Playlist Management",
+                featurePlaylistsDesc: "Create, edit, and manage your personal playlists with ease",
+                featureSearch: "Smart Search",
+                featureSearchDesc: "Find any song, artist, or album instantly with our powerful search",
+                featureRadio: "Radio Mode",
+                featureRadioDesc: "Auto-play similar songs based on your music preferences",
+                featureLyrics: "Lyrics Display",
+                featureLyricsDesc: "Real-time lyrics synchronized with the music",
+                featureMultiServer: "Multi-Server",
+                featureMultiServerDesc: "Works seamlessly across multiple Discord servers",
+                commandsTitle: "Easy to Use Commands",
+                commandsSubtitle: "Simple and intuitive commands for everyone",
+                commandPlay: "!play [song]",
+                commandPlayDesc: "Play any song or playlist",
+                commandSkip: "!skip",
+                commandSkipDesc: "Skip the current track",
+                commandPause: "!pause",
+                commandPauseDesc: "Pause the music",
+                commandResume: "!resume",
+                commandResumeDesc: "Resume paused music",
+                commandQueue: "!queue",
+                commandQueueDesc: "View the music queue",
+                commandVolume: "!volume [0-100]",
+                commandVolumeDesc: "Adjust the volume",
+                commandShuffle: "!shuffle",
+                commandShuffleDesc: "Shuffle the queue",
+                commandClear: "!clear",
+                commandClearDesc: "Clear the music queue",
+                aboutTitle: "About Maya Bot",
+                aboutDescription: "Maya Bot is a powerful Discord music bot designed to bring the best music streaming experience to your server. With support for multiple platforms including Spotify, YouTube, SoundCloud, and more, Maya Bot ensures you never miss a beat.",
+                statsServers: "Servers",
+                statsUsers: "Users",
+                statsSongs: "Songs Played",
+                footerRights: "All rights reserved.",
+                footerTerms: "Terms of Service",
+                footerPrivacy: "Privacy Policy",
+                footerSupport: "Support Server",
+            },
+            vi: {
+                home: "Trang chủ",
+                features: "Tính năng",
+                commands: "Lệnh",
+                about: "Giới thiệu",
+                heroTitle: "Maya Bot",
+                heroSubtitle: "Đồng Hâm Nhạc Của Bạn",
+                heroDescription: "Trải nghiệm phát nhạc tốt nhất với Maya Bot. Âm thanh chất lượng cao, quản lý danh sách phát và tích hợp mượt mà với các nền tảng yêu thích của bạn.",
+                ctaInvite: "Mời Maya Bot",
+                ctaLearnMore: "Tìm Hiểu Thêm",
+                featuresTitle: "Tính Năng Mạnh Mẽ",
+                featuresSubtitle: "Mọi thứ bạn cần cho trải nghiệm âm nhạc tuyệt vời",
+                featureHighQuality: "Âm Thanh Chất Lượng Cao",
+                featureHighQualityDesc: "Âm thanh trong trẻo với nhiều tùy chọn chất lượng từ 128kbps đến FLAC",
+                featurePlaylists: "Quản Lý Danh Sách Phát",
+                featurePlaylistsDesc: "Tạo, chỉnh sửa và quản lý danh sách phát cá nhân một cách dễ dàng",
+                featureSearch: "Tìm Kiếm Thông Minh",
+                featureSearchDesc: "Tìm bất kỳ bài hát, nghệ sĩ hoặc album ngay lập tức với công cụ tìm kiếm mạnh mẽ",
+                featureRadio: "Chế Độ Radio",
+                featureRadioDesc: "Tự động phát các bài hát tương tự dựa trên sở thích âm nhạc của bạn",
+                featureLyrics: "Hiển Thị Lời Bài Hát",
+                featureLyricsDesc: "Lời bài hát đồng bộ thời gian thực với nhạc",
+                featureMultiServer: "Đa Máy Chủ",
+                featureMultiServerDesc: "Hoạt động mượt mà trên nhiều máy chủ Discord",
+                commandsTitle: "Lệnh Dễ Sử Dụng",
+                commandsSubtitle: "Các lệnh đơn giản và trực quan cho mọi người",
+                commandPlay: "!play [bài hát]",
+                commandPlayDesc: "Phát bất kỳ bài hát hoặc danh sách phát",
+                commandSkip: "!skip",
+                commandSkipDesc: "Bỏ qua bài hát hiện tại",
+                commandPause: "!pause",
+                commandPauseDesc: "Tạm dừng nhạc",
+                commandResume: "!resume",
+                commandResumeDesc: "Tiếp tục nhạc đã tạm dừng",
+                commandQueue: "!queue",
+                commandQueueDesc: "Xem danh sách chờ nhạc",
+                commandVolume: "!volume [0-100]",
+                commandVolumeDesc: "Điều chỉnh âm lượng",
+                commandShuffle: "!shuffle",
+                commandShuffleDesc: "Xáo trộn danh sách chờ",
+                commandClear: "!clear",
+                commandClearDesc: "Xóa danh sách chờ nhạc",
+                aboutTitle: "Về Maya Bot",
+                aboutDescription: "Maya Bot là bot nhạc Discord mạnh mẽ được thiết kế để mang lại trải nghiệm phát nhạc tốt nhất đến máy chủ của bạn. Với hỗ trợ cho nhiều nền tảng bao gồm Spotify, YouTube, SoundCloud và nhiều hơn nữa, Maya Bot đảm bảo bạn không bao giờ bỏ lỡ một nhịp điệu nào.",
+                statsServers: "Máy Chủ",
+                statsUsers: "Người Dùng",
+                statsSongs: "Bài Hát Đã Phát",
+                footerRights: "Đã đăng ký bản quyền.",
+                footerTerms: "Điều Khoản Dịch Vụ",
+                footerPrivacy: "Chính Sách Bảo Mật",
+                footerSupport: "Máy Chủ Hỗ Trợ",
+            },
+            hi: {
+                home: "मुख्य पृष्ठ",
+                features: "सुविधाएं",
+                commands: "कमांड",
+                about: "के बारे में",
+                heroTitle: "माया बॉट",
+                heroSubtitle: "आपका परम संगीत साथी",
+                heroDescription: "माया बॉट के साथ सर्वश्रेष्ठ संगीत स्ट्रीमिंग का अनुभव करें। उच्च-गुणवत्ता वाला ऑडियो, प्लेलिस्ट प्रबंधन, और आपके पसंदीदा प्लेटफॉर्म के साथ सहज एकीकरण।",
+                ctaInvite: "माया बॉट को आमंत्रित करें",
+                ctaLearnMore: "और जानें",
+                featuresTitle: "शक्तिशाली सुविधाएं",
+                featuresSubtitle: "एक अद्भुत संगीत अनुभव के लिए आपको जो भी चाहिए",
+                featureHighQuality: "उच्च गुणवत्ता वाला ऑडियो",
+                featureHighQualityDesc: "128kbps से FLAC तक कई गुणवत्ता विकल्पों के साथ क्रिस्टल साफ ध्वनि",
+                featurePlaylists: "प्लेलिस्ट प्रबंधन",
+                featurePlaylistsDesc: "अपनी व्यक्तिगत प्लेलिस्ट को आसानी से बनाएं, संपादित करें और प्रबंधित करें",
+                featureSearch: "स्मार्ट खोज",
+                featureSearchDesc: "हमारी शक्तिशाली खोज के साथ किसी भी गीत, कलाकार या एल्बम को तुरंत खोजें",
+                featureRadio: "रेडियो मोड",
+                featureRadioDesc: "अपनी संगीत प्राथमिकताओं के आधार पर समान गीतों को स्वचालित रूप से चलाएं",
+                featureLyrics: "गीत प्रदर्शन",
+                featureLyricsDesc: "संगीत के साथ समकालिक वास्तविक समय के गीत",
+                featureMultiServer: "मल्टी-सर्वर",
+                featureMultiServerDesc: "कई Discord सर्वर पर सहजता से काम करता है",
+                commandsTitle: "उपयोग करने में आसान कमांड",
+                commandsSubtitle: "हर किसी के लिए सरल और सहज ज्ञान युक्त कमांड",
+                commandPlay: "!play [गीत]",
+                commandPlayDesc: "कोई भी गीत या प्लेलिस्ट चलाएं",
+                commandSkip: "!skip",
+                commandSkipDesc: "वर्तमान ट्रैक को छोड़ें",
+                commandPause: "!pause",
+                commandPauseDesc: "संगीत को रोकें",
+                commandResume: "!resume",
+                commandResumeDesc: "रुका हुआ संगीत फिर से शुरू करें",
+                commandQueue: "!queue",
+                commandQueueDesc: "संगीत कतार देखें",
+                commandVolume: "!volume [0-100]",
+                commandVolumeDesc: "वॉल्यूम समायोजित करें",
+                commandShuffle: "!shuffle",
+                commandShuffleDesc: "कतार को शफल करें",
+                commandClear: "!clear",
+                commandClearDesc: "संगीत कतार साफ़ करें",
+                aboutTitle: "माया बॉट के बारे में",
+                aboutDescription: "माया बॉट एक शक्तिशाली Discord संगीत बॉट है जो आपके सर्वर में सर्वश्रेष्ठ संगीत स्ट्रीमिंग अनुभव लाने के लिए डिज़ाइन किया गया है। Spotify, YouTube, SoundCloud और अन्य सहित कई प्लेटफ़ॉर्म का समर्थन के साथ, माया बॉट सुनिश्चित करता है कि आप कभी भी कोई बीट न चूकें।",
+                statsServers: "सर्वर",
+                statsUsers: "उपयोगकर्ता",
+                statsSongs: "गाने बजाए गए",
+                footerRights: "सर्वाधिकार सुरक्षित।",
+                footerTerms: "सेवा की शर्तें",
+                footerPrivacy: "गोपनीयता नीति",
+                footerSupport: "सहायता सर्वर",
+            }
+        };
+
+        // Current language
+        let currentLang = 'en';
+
+        // Change language function
+        function changeLanguage(lang) {
+            currentLang = lang;
+
+            // Update all text elements
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+
+            // Update language buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // Save preference
+            localStorage.setItem('maya-bot-language', lang);
+        }
+
+        // Load saved language
+        const savedLang = localStorage.getItem('maya-bot-language');
+        if (savedLang && translations[savedLang]) {
+            changeLanguage(savedLang);
+        }
+
+        // Play/Pause animation toggle
+        let isPlaying = true;
+        function togglePlay() {
+            isPlaying = !isPlaying;
+            const disc = document.getElementById('mainDisc');
+            const visualizer = document.getElementById('visualizer');
+            const playIcon = document.getElementById('playIcon');
+
+            if (isPlaying) {
+                disc.style.animationPlayState = 'running';
+                visualizer.querySelectorAll('.visualizer-bar').forEach(bar => {
+                    bar.style.animationPlayState = 'running';
+                });
+                playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+            } else {
+                disc.style.animationPlayState = 'paused';
+                visualizer.querySelectorAll('.visualizer-bar').forEach(bar => {
+                    bar.style.animationPlayState = 'paused';
+                });
+                playIcon.innerHTML = '<path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>';
+            }
+        }
+
+        // Scroll to section
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 4 + 's';
+                particle.style.animationDuration = (3 + Math.random() * 4) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.slide-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Initialize
+        createParticles();
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                scrollToSection(targetId);
+            });
+        });
+    </script>
+</body>
+</html>
