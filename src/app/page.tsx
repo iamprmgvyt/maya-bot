@@ -2,14 +2,22 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Music, Play, Pause, SkipForward, Radio, ListMusic, Search, Volume2, Shuffle, Languages, Disc, Sparkles, Command, Server, Users } from 'lucide-react';
+import { Music, Play, Pause, Radio, ListMusic, Search, Volume2, Disc, Sparkles, Command, Server, Users, Moon, Sun, Globe } from 'lucide-react';
 import { useLanguage } from '@/hooks/use-language';
+import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function MayaBotPage() {
   const { language, setLanguage, t } = useLanguage();
+  const { theme, setTheme } = useTheme();
   const [isPlaying, setIsPlaying] = useState(true);
   const [currentBeat, setCurrentBeat] = useState(0);
 
@@ -145,28 +153,44 @@ export default function MayaBotPage() {
   };
 
   const LanguageSelector = () => (
-    <div className="flex gap-2">
-      {(['en', 'vi', 'hi'] as const).map((lang) => (
-        <Button
-          key={lang}
-          variant={language === lang ? 'default' : 'outline'}
-          size="sm"
-          onClick={() => setLanguage(lang)}
-          className={`min-w-12 transition-all duration-300 hover:scale-105 ${
-            language === lang
-              ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700'
-              : 'hover:bg-purple-100'
-          }`}
-        >
-          <Languages className="w-4 h-4 mr-1" />
-          {lang.toUpperCase()}
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" size="sm" className="min-w-12">
+          <Globe className="w-4 h-4 mr-2" />
+          {language.toUpperCase()}
         </Button>
-      ))}
-    </div>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={() => setLanguage('en')}>
+          🇬🇧 English
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setLanguage('vi')}>
+          🇻🇳 Tiếng Việt
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setLanguage('hi')}>
+          🇮🇳 हिंदी
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+
+  const ThemeToggle = () => (
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      className="min-w-12"
+    >
+      {theme === 'dark' ? (
+        <Sun className="w-4 h-4" />
+      ) : (
+        <Moon className="w-4 h-4" />
+      )}
+    </Button>
   );
 
   const FeatureCard = ({ icon: Icon, title, desc }: any) => (
-    <Card className="h-full transition-all duration-300 hover:shadow-lg hover:border-purple-200 bg-white/80 backdrop-blur-sm">
+    <Card className="h-full transition-all duration-300 hover:shadow-lg hover:border-purple-200 bg-white/80 dark:bg-gray-800/80 dark:hover:border-purple-400 backdrop-blur-sm">
       <CardContent className="p-6">
         <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-4">
           <Icon className="w-7 h-7 text-white" />
@@ -174,32 +198,32 @@ export default function MayaBotPage() {
         <h3 className="text-xl font-bold mb-2 bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-transparent">
           {title}
         </h3>
-        <p className="text-gray-600">{desc}</p>
+        <p className="text-gray-600 dark:text-gray-300">{desc}</p>
       </CardContent>
     </Card>
   );
 
   const CommandCard = ({ command, desc }: any) => (
-    <Card className="transition-all duration-300 hover:shadow-md hover:border-purple-200 bg-white/80 backdrop-blur-sm">
+    <Card className="transition-all duration-300 hover:shadow-md hover:border-purple-200 bg-white/80 dark:bg-gray-800/80 dark:hover:border-purple-400 backdrop-blur-sm">
       <CardContent className="p-4 flex items-center gap-4">
         <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center flex-shrink-0">
           <Command className="w-5 h-5 text-white" />
         </div>
         <div className="flex-1">
-          <code className="text-lg font-semibold text-purple-700">{command}</code>
-          <p className="text-sm text-gray-600">{desc}</p>
+          <code className="text-lg font-semibold text-purple-700 dark:text-purple-400">{command}</code>
+          <p className="text-sm text-gray-600 dark:text-gray-300">{desc}</p>
         </div>
       </CardContent>
     </Card>
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <FloatingBackground />
 
       {/* Header */}
       <motion.header
-        className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-purple-100"
+        className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-purple-100 dark:border-purple-900/50"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
@@ -213,24 +237,29 @@ export default function MayaBotPage() {
               Maya Bot
             </span>
           </div>
-          <nav className="hidden md:flex items-center gap-6">
-            {[
-              { key: 'home', icon: Music },
-              { key: 'features', icon: Sparkles },
-              { key: 'commands', icon: Command },
-              { key: 'about', icon: Server },
-            ].map((item) => (
-              <a
-                key={item.key}
-                href={`#${item.key}`}
-                className="flex items-center gap-2 text-gray-700 hover:text-purple-600 hover:scale-105 transition-all duration-300"
-              >
-                <item.icon className="w-4 h-4" />
-                <span>{t(item.key)}</span>
-              </a>
-            ))}
-          </nav>
-          <LanguageSelector />
+          <div className="flex items-center gap-4">
+            <nav className="hidden md:flex items-center gap-6">
+              {[
+                { key: 'home', icon: Music },
+                { key: 'features', icon: Sparkles },
+                { key: 'commands', icon: Command },
+                { key: 'about', icon: Server },
+              ].map((item) => (
+                <a
+                  key={item.key}
+                  href={`#${item.key}`}
+                  className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:scale-105 transition-all duration-300"
+                >
+                  <item.icon className="w-4 h-4" />
+                  <span>{t(item.key)}</span>
+                </a>
+              ))}
+            </nav>
+            <div className="flex items-center gap-2">
+              <LanguageSelector />
+              <ThemeToggle />
+            </div>
+          </div>
         </div>
       </motion.header>
 
@@ -264,7 +293,7 @@ export default function MayaBotPage() {
                 </span>
               </motion.h1>
               <motion.p
-                className="text-xl text-gray-600 mb-8"
+                className="text-xl text-gray-600 dark:text-gray-300 mb-8"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
@@ -296,7 +325,7 @@ export default function MayaBotPage() {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="border-2 border-purple-300 hover:bg-purple-50 px-8 py-6 text-lg"
+                    className="border-2 border-purple-300 hover:bg-purple-50 px-8 py-6 text-lg dark:border-purple-700 dark:hover:bg-purple-900/50"
                   >
                     {t('ctaLearnMore')}
                   </Button>
@@ -330,7 +359,7 @@ export default function MayaBotPage() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 px-4 bg-white/50 backdrop-blur-sm">
+      <section id="features" className="py-20 px-4 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
         <div className="container mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -341,7 +370,7 @@ export default function MayaBotPage() {
             <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-transparent">
               {t('featuresTitle')}
             </h2>
-            <p className="text-xl text-gray-600">{t('featuresSubtitle')}</p>
+            <p className="text-xl text-gray-600 dark:text-gray-300">{t('featuresSubtitle')}</p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -391,7 +420,7 @@ export default function MayaBotPage() {
             <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-transparent">
               {t('commandsTitle')}
             </h2>
-            <p className="text-xl text-gray-600">{t('commandsSubtitle')}</p>
+            <p className="text-xl text-gray-600 dark:text-gray-300">{t('commandsSubtitle')}</p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
@@ -478,13 +507,13 @@ export default function MayaBotPage() {
               <span className="text-2xl font-bold">Maya Bot</span>
             </div>
             <div className="flex gap-6 text-gray-400">
-              <a href="#" className="hover:text-white transition-colors">
+              <a href="/tos" className="hover:text-white transition-colors">
                 {t('footerTerms')}
               </a>
-              <a href="#" className="hover:text-white transition-colors">
+              <a href="/privacy" className="hover:text-white transition-colors">
                 {t('footerPrivacy')}
               </a>
-              <a href="#" className="hover:text-white transition-colors">
+              <a href="https://discord.gg/TyQbkCVPr6" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                 {t('footerSupport')}
               </a>
             </div>
@@ -495,7 +524,7 @@ export default function MayaBotPage() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
-            © 2024 Maya Bot. {t('footerRights')}
+            © 2026 Maya Bot. {t('footerRights')}
           </motion.div>
         </div>
       </footer>

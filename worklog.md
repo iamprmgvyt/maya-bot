@@ -105,3 +105,31 @@ Stage Summary:
 - Header: Simple CSS hover effects
 - Completely clean and simple UX without complex motion animations
 - Much better performance and smoother experience
+
+---
+
+Task ID: 5
+Agent: Z.ai Code
+Task: Add dark mode, TOS/Privacy pages, update year, language dropdown, Discord link
+
+Work Log:
+- Added ThemeProvider to layout.tsx with next-themes
+- Updated metadata for Maya Bot
+- Added dark mode toggle button (Sun/Moon icons) to main page
+- Updated all colors to support dark mode (dark: variants for text and backgrounds)
+- Changed language selector from buttons to dropdown select box
+- Created /tos page with full terms of service content in 3 languages
+- Created /privacy page with full privacy policy content in 3 languages
+- Updated footer year from 2024 to 2026
+- Updated Support Server link to https://discord.gg/TyQbkCVPr6
+- Added proper navigation links to TOS (/tos) and Privacy (/privacy) pages
+
+Stage Summary:
+- Dark mode fully implemented with smooth transitions
+- TOS page created with comprehensive terms in EN, VI, HI
+- Privacy page created with detailed privacy policy in EN, VI, HI
+- Language selector changed to dropdown (select box)
+- Footer updated with 2026 year and Discord support link
+- All pages support dark mode with proper colors
+- Multi-language support on all pages
+- Professional and polished design throughout
