@@ -167,21 +167,16 @@ export default function MayaBotPage() {
 
   const FeatureCard = ({ icon: Icon, title, desc, delay }: any) => (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay }}
-      whileHover={{ scale: 1.05, y: -5 }}
     >
-      <Card className="h-full transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20 border-2 hover:border-purple-300 bg-white/80 backdrop-blur-sm">
+      <Card className="h-full transition-all duration-300 hover:shadow-lg border-2 hover:border-purple-200 bg-white/80 backdrop-blur-sm">
         <CardContent className="p-6">
-          <motion.div
-            className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-4"
-            whileHover={{ rotate: 360 }}
-            transition={{ duration: 0.5 }}
-          >
+          <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-4">
             <Icon className="w-7 h-7 text-white" />
-          </motion.div>
+          </div>
           <h3 className="text-xl font-bold mb-2 bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-transparent">
             {title}
           </h3>
@@ -193,13 +188,12 @@ export default function MayaBotPage() {
 
   const CommandCard = ({ command, desc, delay }: any) => (
     <motion.div
-      initial={{ opacity: 0, x: -50 }}
-      whileInView={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay }}
-      whileHover={{ scale: 1.02, x: 5 }}
     >
-      <Card className="transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10 border-2 hover:border-purple-200 bg-white/80 backdrop-blur-sm">
+      <Card className="transition-all duration-300 hover:shadow-md hover:border-purple-200 bg-white/80 backdrop-blur-sm">
         <CardContent className="p-4 flex items-center gap-4">
           <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center flex-shrink-0">
             <Command className="w-5 h-5 text-white" />
@@ -225,17 +219,14 @@ export default function MayaBotPage() {
         transition={{ duration: 0.5 }}
       >
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <motion.div
-            className="flex items-center gap-2"
-            whileHover={{ scale: 1.05 }}
-          >
+          <div className="flex items-center gap-2 cursor-pointer hover:scale-105 transition-transform duration-300">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
               <Disc className="w-6 h-6 text-white" />
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-transparent">
               Maya Bot
             </span>
-          </motion.div>
+          </div>
           <nav className="hidden md:flex items-center gap-6">
             {[
               { key: 'home', icon: Music },
@@ -243,15 +234,14 @@ export default function MayaBotPage() {
               { key: 'commands', icon: Command },
               { key: 'about', icon: Server },
             ].map((item) => (
-              <motion.a
+              <a
                 key={item.key}
                 href={`#${item.key}`}
-                className="flex items-center gap-2 text-gray-700 hover:text-purple-600 transition-colors"
-                whileHover={{ scale: 1.1 }}
+                className="flex items-center gap-2 text-gray-700 hover:text-purple-600 hover:scale-105 transition-all duration-300"
               >
                 <item.icon className="w-4 h-4" />
                 <span>{t(item.key)}</span>
-              </motion.a>
+              </a>
             ))}
           </nav>
           <LanguageSelector />
@@ -491,19 +481,14 @@ export default function MayaBotPage() {
               <motion.div
                 key={index}
                 className="text-center"
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.2 }}
-                whileHover={{ scale: 1.1 }}
               >
-                <motion.div
-                  className="w-20 h-20 mx-auto mb-4 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center"
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.5 }}
-                >
+                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
                   <stat.icon className="w-10 h-10" />
-                </motion.div>
+                </div>
                 <div className="text-5xl font-bold mb-2">{stat.value}</div>
                 <div className="text-lg opacity-80">{stat.label}</div>
               </motion.div>
