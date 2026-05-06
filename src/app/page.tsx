@@ -165,46 +165,32 @@ export default function MayaBotPage() {
     </div>
   );
 
-  const FeatureCard = ({ icon: Icon, title, desc, delay }: any) => (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay }}
-    >
-      <Card className="h-full transition-all duration-300 hover:shadow-lg border-2 hover:border-purple-200 bg-white/80 backdrop-blur-sm">
-        <CardContent className="p-6">
-          <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-4">
-            <Icon className="w-7 h-7 text-white" />
-          </div>
-          <h3 className="text-xl font-bold mb-2 bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-transparent">
-            {title}
-          </h3>
-          <p className="text-gray-600">{desc}</p>
-        </CardContent>
-      </Card>
-    </motion.div>
+  const FeatureCard = ({ icon: Icon, title, desc }: any) => (
+    <Card className="h-full transition-all duration-300 hover:shadow-lg hover:border-purple-200 bg-white/80 backdrop-blur-sm">
+      <CardContent className="p-6">
+        <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-4">
+          <Icon className="w-7 h-7 text-white" />
+        </div>
+        <h3 className="text-xl font-bold mb-2 bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-transparent">
+          {title}
+        </h3>
+        <p className="text-gray-600">{desc}</p>
+      </CardContent>
+    </Card>
   );
 
-  const CommandCard = ({ command, desc, delay }: any) => (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4, delay }}
-    >
-      <Card className="transition-all duration-300 hover:shadow-md hover:border-purple-200 bg-white/80 backdrop-blur-sm">
-        <CardContent className="p-4 flex items-center gap-4">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center flex-shrink-0">
-            <Command className="w-5 h-5 text-white" />
-          </div>
-          <div className="flex-1">
-            <code className="text-lg font-semibold text-purple-700">{command}</code>
-            <p className="text-sm text-gray-600">{desc}</p>
-          </div>
-        </CardContent>
-      </Card>
-    </motion.div>
+  const CommandCard = ({ command, desc }: any) => (
+    <Card className="transition-all duration-300 hover:shadow-md hover:border-purple-200 bg-white/80 backdrop-blur-sm">
+      <CardContent className="p-4 flex items-center gap-4">
+        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center flex-shrink-0">
+          <Command className="w-5 h-5 text-white" />
+        </div>
+        <div className="flex-1">
+          <code className="text-lg font-semibold text-purple-700">{command}</code>
+          <p className="text-sm text-gray-600">{desc}</p>
+        </div>
+      </CardContent>
+    </Card>
   );
 
   return (
@@ -363,37 +349,31 @@ export default function MayaBotPage() {
               icon={Volume2}
               title={t('featureHighQuality')}
               desc={t('featureHighQualityDesc')}
-              delay={0.1}
             />
             <FeatureCard
               icon={ListMusic}
               title={t('featurePlaylists')}
               desc={t('featurePlaylistsDesc')}
-              delay={0.2}
             />
             <FeatureCard
               icon={Search}
               title={t('featureSearch')}
               desc={t('featureSearchDesc')}
-              delay={0.3}
             />
             <FeatureCard
               icon={Radio}
               title={t('featureRadio')}
               desc={t('featureRadioDesc')}
-              delay={0.4}
             />
             <FeatureCard
               icon={Music}
               title={t('featureLyrics')}
               desc={t('featureLyricsDesc')}
-              delay={0.5}
             />
             <FeatureCard
               icon={Server}
               title={t('featureMultiServer')}
               desc={t('featureMultiServerDesc')}
-              delay={0.6}
             />
           </div>
         </div>
@@ -418,42 +398,34 @@ export default function MayaBotPage() {
             <CommandCard
               command={t('commandPlay')}
               desc={t('commandPlayDesc')}
-              delay={0.1}
             />
             <CommandCard
               command={t('commandSkip')}
               desc={t('commandSkipDesc')}
-              delay={0.15}
             />
             <CommandCard
               command={t('commandPause')}
               desc={t('commandPauseDesc')}
-              delay={0.2}
             />
             <CommandCard
               command={t('commandResume')}
               desc={t('commandResumeDesc')}
-              delay={0.25}
             />
             <CommandCard
               command={t('commandQueue')}
               desc={t('commandQueueDesc')}
-              delay={0.3}
             />
             <CommandCard
               command={t('commandVolume')}
               desc={t('commandVolumeDesc')}
-              delay={0.35}
             />
             <CommandCard
               command={t('commandShuffle')}
               desc={t('commandShuffleDesc')}
-              delay={0.4}
             />
             <CommandCard
               command={t('commandClear')}
               desc={t('commandClearDesc')}
-              delay={0.45}
             />
           </div>
         </div>
