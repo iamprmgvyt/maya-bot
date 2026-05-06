@@ -105,29 +105,44 @@ export default function MayaBotPage() {
     </div>
   );
 
-  const FloatingBackground = () => (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
-      {[...Array(20)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-2 h-2 bg-purple-400 rounded-full opacity-20"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-          }}
-          animate={{
-            y: [0, -100, 0],
-            opacity: [0.2, 0.5, 0.2],
-          }}
-          transition={{
-            duration: 3 + Math.random() * 4,
-            repeat: Infinity,
-            delay: Math.random() * 2,
-          }}
-        />
-      ))}
-    </div>
-  );
+  const FloatingBackground = () => {
+    const [particles, setParticles] = useState<Array<{ left: number; top: number; duration: number; delay: number }>>([]);
+
+    useEffect(() => {
+      setParticles(
+        [...Array(20)].map(() => ({
+          left: Math.random() * 100,
+          top: Math.random() * 100,
+          duration: 3 + Math.random() * 4,
+          delay: Math.random() * 2,
+        }))
+      );
+    }, []);
+
+    return (
+      <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+        {particles.map((particle, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-purple-400 rounded-full opacity-20"
+            style={{
+              left: `${particle.left}%`,
+              top: `${particle.top}%`,
+            }}
+            animate={{
+              y: [0, -100, 0],
+              opacity: [0.2, 0.5, 0.2],
+            }}
+            transition={{
+              duration: particle.duration,
+              repeat: Infinity,
+              delay: particle.delay,
+            }}
+          />
+        ))}
+      </div>
+    );
+  };
 
   const LanguageSelector = () => (
     <div className="flex gap-2">
@@ -137,7 +152,7 @@ export default function MayaBotPage() {
           variant={language === lang ? 'default' : 'outline'}
           size="sm"
           onClick={() => setLanguage(lang)}
-          className={`min-w-12 transition-all duration-300 ${
+          className={`min-w-12 transition-all duration-300 hover:scale-105 ${
             language === lang
               ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700'
               : 'hover:bg-purple-100'
@@ -286,24 +301,30 @@ export default function MayaBotPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.8 }}
               >
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-6 text-lg shadow-lg shadow-purple-500/30"
+                <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Play className="w-5 h-5 mr-2" />
-                  {t('ctaInvite')}
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-2 border-purple-300 hover:bg-purple-50 px-8 py-6 text-lg"
+                  <Button
+                    size="lg"
+                    className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-6 text-lg shadow-lg shadow-purple-500/30"
+                  >
+                    <Play className="w-5 h-5 mr-2" />
+                    {t('ctaInvite')}
+                  </Button>
+                </motion.div>
+                <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  {t('ctaLearnMore')}
-                </Button>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="border-2 border-purple-300 hover:bg-purple-50 px-8 py-6 text-lg"
+                  >
+                    {t('ctaLearnMore')}
+                  </Button>
+                </motion.div>
               </motion.div>
             </motion.div>
 
