@@ -1,5 +1,6 @@
 'use client';
 
+import type { Metadata } from "next";
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Users, Crown, Zap, Brain, Wrench, Globe, Heart } from 'lucide-react';
@@ -14,6 +15,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
+export const metadata: Metadata = {
+  title: "Our Team - Maya Development Team | Maya Bot",
+  description: "Meet the amazing people behind Maya Bot - Rizx, Emmu, Zyrax, prmgvyt, and the entire Maya Development Team working on your ultimate Discord music bot.",
+  keywords: ["Maya Bot Team", "Maya Development Team", "Discord Bot Team", "Rizx", "Emmu", "Zyrax", "prmgvyt"],
+};
 
 export default function TeamPage() {
   const { language, setLanguage, t } = useLanguage();
