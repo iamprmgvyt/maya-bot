@@ -243,11 +243,12 @@ export default function MayaBotPage() {
                 { key: 'home', icon: Music },
                 { key: 'features', icon: Sparkles },
                 { key: 'commands', icon: Command },
+                { key: 'team', icon: Users },
                 { key: 'about', icon: Server },
               ].map((item) => (
                 <a
                   key={item.key}
-                  href={`#${item.key}`}
+                  href={item.key === 'team' ? '/team' : `#${item.key}`}
                   className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:scale-105 transition-all duration-300"
                 >
                   <item.icon className="w-4 h-4" />

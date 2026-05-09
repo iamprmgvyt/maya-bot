@@ -4,12 +4,13 @@ export const translations = {
     home: "Home",
     features: "Features",
     commands: "Commands",
+    team: "Our Team",
     about: "About",
 
     // Hero Section
     heroTitle: "Maya Bot",
     heroSubtitle: "Your Ultimate Music Companion",
-    heroDescription: "Experience the best music streaming with Maya Bot. High-quality audio, playlist management, and seamless integration with your favorite platforms.",
+    heroDescription: "Experience best music streaming with Maya Bot. High-quality audio, playlist management, and seamless integration with your favorite platforms.",
     ctaInvite: "Invite Maya Bot",
     ctaLearnMore: "Learn More",
 
@@ -32,21 +33,21 @@ export const translations = {
     // Commands Section
     commandsTitle: "Easy to Use Commands",
     commandsSubtitle: "Simple and intuitive commands for everyone",
-    commandPlay: "àdndhi play [song]",
+    commandPlay: "/play [song]",
     commandPlayDesc: "Play any song or playlist",
-    commandSkip: "àdndhi skip",
+    commandSkip: "/skip",
     commandSkipDesc: "Skip the current track",
-    commandPause: "àdndhi pause",
+    commandPause: "/pause",
     commandPauseDesc: "Pause the music",
-    commandResume: "àdndhi resume",
-    commandResumeDesc: "Resume paused music",
-    commandQueue: "àdndhi queue",
+    commandResume: "/resume",
+    commandResumeDesc: "Resume the music",
+    commandQueue: "/queue",
     commandQueueDesc: "View the music queue",
-    commandVolume: "àdndhi volume [0-100]",
+    commandVolume: "/volume [0-100]",
     commandVolumeDesc: "Adjust the volume",
-    commandShuffle: "àdndhi shuffle",
+    commandShuffle: "/shuffle",
     commandShuffleDesc: "Shuffle the queue",
-    commandClear: "àdndhi clear",
+    commandClear: "/clear",
     commandClearDesc: "Clear the music queue",
 
     // About Section
@@ -55,6 +56,17 @@ export const translations = {
     statsServers: "Servers",
     statsUsers: "Users",
     statsSongs: "Songs Played",
+
+    // Team Section
+    teamTitle: "Maya Development Team",
+    teamSubtitle: "The amazing people behind Maya Bot",
+    teamRoleOwner: "Owners",
+    teamRoleCoOwner: "Co-Owner",
+    teamRoleDev: "Developer / Lavalink Manager",
+    teamRoleCoDev: "Co-Developer",
+    teamRoleNodeManager: "Node Manager",
+    teamRoleSupporter: "Supporters",
+    teamImageAlt: "Maya Music by Maya Development",
 
     // Footer
     footerRights: "All rights reserved.",
@@ -67,6 +79,7 @@ export const translations = {
     home: "Trang chủ",
     features: "Tính năng",
     commands: "Lệnh",
+    team: "Đội ngũ",
     about: "Giới thiệu",
 
     // Hero Section
@@ -95,21 +108,21 @@ export const translations = {
     // Commands Section
     commandsTitle: "Lệnh Dễ Sử Dụng",
     commandsSubtitle: "Các lệnh đơn giản và trực quan cho mọi người",
-    commandPlay: "àdndhi play [bài hát]",
+    commandPlay: "/play [bài hát]",
     commandPlayDesc: "Phát bất kỳ bài hát hoặc danh sách phát",
-    commandSkip: "àdndhi skip",
+    commandSkip: "/skip",
     commandSkipDesc: "Bỏ qua bài hát hiện tại",
-    commandPause: "àdndhi pause",
+    commandPause: "/pause",
     commandPauseDesc: "Tạm dừng nhạc",
-    commandResume: "àdndhi resume",
+    commandResume: "/resume",
     commandResumeDesc: "Tiếp tục nhạc đã tạm dừng",
-    commandQueue: "àdndhi queue",
+    commandQueue: "/queue",
     commandQueueDesc: "Xem danh sách chờ nhạc",
-    commandVolume: "àdndhi volume [0-100]",
+    commandVolume: "/volume [0-100]",
     commandVolumeDesc: "Điều chỉnh âm lượng",
-    commandShuffle: "àdndhi shuffle",
+    commandShuffle: "/shuffle",
     commandShuffleDesc: "Xáo trộn danh sách chờ",
-    commandClear: "àdndhi clear",
+    commandClear: "/clear",
     commandClearDesc: "Xóa danh sách chờ nhạc",
 
     // About Section
@@ -118,6 +131,17 @@ export const translations = {
     statsServers: "Máy Chủ",
     statsUsers: "Người Dùng",
     statsSongs: "Bài Hát Đã Phát",
+
+    // Team Section
+    teamTitle: "Maya Development Team",
+    teamSubtitle: "Những người tuyệt vời đằng sau Maya Bot",
+    teamRoleOwner: "Chủ sở hữu",
+    teamRoleCoOwner: "Đồng chủ sở hữu",
+    teamRoleDev: "Nhà phát triển / Quản lý Lavalink",
+    teamRoleCoDev: "Đồng nhà phát triển",
+    teamRoleNodeManager: "Quản lý Node",
+    teamRoleSupporter: "Người ủng hộ",
+    teamImageAlt: "Maya Music bởi Maya Development",
 
     // Footer
     footerRights: "Đã đăng ký bản quyền.",
@@ -130,6 +154,7 @@ export const translations = {
     home: "मुख्य पृष्ठ",
     features: "सुविधाएं",
     commands: "कमांड",
+    team: "हमारी टीम",
     about: "के बारे में",
 
     // Hero Section
@@ -158,21 +183,21 @@ export const translations = {
     // Commands Section
     commandsTitle: "उपयोग करने में आसान कमांड",
     commandsSubtitle: "हर किसी के लिए सरल और सहज ज्ञान युक्त कमांड",
-    commandPlay: "àdndhi play [गीत]",
+    commandPlay: "/play [गीत]",
     commandPlayDesc: "कोई भी गीत या प्लेलिस्ट चलाएं",
-    commandSkip: "àdndhi skip",
+    commandSkip: "/skip",
     commandSkipDesc: "वर्तमान ट्रैक को छोड़ें",
-    commandPause: "àdndhi pause",
+    commandPause: "/pause",
     commandPauseDesc: "संगीत को रोकें",
-    commandResume: "àdndhi resume",
+    commandResume: "/resume",
     commandResumeDesc: "रुका हुआ संगीत फिर से शुरू करें",
-    commandQueue: "àdndhi queue",
+    commandQueue: "/queue",
     commandQueueDesc: "संगीत कतार देखें",
-    commandVolume: "àdndhi volume [0-100]",
+    commandVolume: "/volume [0-100]",
     commandVolumeDesc: "वॉल्यूम समायोजित करें",
-    commandShuffle: "àdndhi shuffle",
+    commandShuffle: "/shuffle",
     commandShuffleDesc: "कतार को शफल करें",
-    commandClear: "àdndhi clear",
+    commandClear: "/clear",
     commandClearDesc: "संगीत कतार साफ़ करें",
 
     // About Section
@@ -181,6 +206,17 @@ export const translations = {
     statsServers: "सर्वर",
     statsUsers: "उपयोगकर्ता",
     statsSongs: "गाने बजाए गए",
+
+    // Team Section
+    teamTitle: "माया डेवलपमेंट टीम",
+    teamSubtitle: "माया बॉट के पीछे अद्भुत लोग",
+    teamRoleOwner: "मालिक",
+    teamRoleCoOwner: "सह-मालिक",
+    teamRoleDev: "डेवलपर / Lavalink मैनेजर",
+    teamRoleCoDev: "सह-डेवलपर",
+    teamRoleNodeManager: "नोड मैनेजर",
+    teamRoleSupporter: "समर्थक",
+    teamImageAlt: "माया म्यूजिक द्वारा माया डेवलपमेंट",
 
     // Footer
     footerRights: "सर्वाधिकार सुरक्षित।",
